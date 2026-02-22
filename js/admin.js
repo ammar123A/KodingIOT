@@ -42,13 +42,7 @@ class AdminPanel {
 
     async loadUsers() {
         try {
-            const res = await fetch('api/user-auth.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                credentials: 'include',
-                body: JSON.stringify({ action: 'list_users' })
-            });
-            const data = await res.json();
+            const data = await ApiClient.listUsers();
 
             if (data.users) {
                 document.getElementById('totalUsers').textContent = data.users.length;
@@ -114,13 +108,7 @@ class AdminPanel {
 
     async toggleFeatured(projectId, featured) {
         try {
-            const res = await fetch('api/save-project.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                credentials: 'include',
-                body: JSON.stringify({ action: 'toggle_featured', id: projectId, is_featured: featured })
-            });
-            const data = await res.json();
+            const data = await ApiClient.toggleFeatured(projectId, featured);
             if (data.error) {
                 alert('❌ ' + data.error);
                 return;

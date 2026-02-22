@@ -91,7 +91,8 @@ class SessionManager {
         if (idle > 5 * 60 * 1000) return;
 
         try {
-            await ApiClient.me();
+            // Refresh Supabase session token if still active
+            await _supabase.auth.getSession();
         } catch {
             // server unreachable — ignore
         }
@@ -162,9 +163,9 @@ class SessionManager {
         localStorage.removeItem('kodingiot_current_user');
         localStorage.removeItem(SessionManager.STORAGE_KEY);
 
-        // Tell server to destroy session
+        // Tell Supabase to sign out
         try {
-            await ApiClient.logout();
+            await _supabase.auth.signOut();
         } catch {
             // ignore — we're logging out anyway
         }
