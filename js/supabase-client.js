@@ -11,8 +11,8 @@
  *   4. Replace SUPABASE_ANON with your anon/public key
  */
 
-const SUPABASE_URL  = 'YOUR_SUPABASE_URL';   // e.g. https://xyzcompany.supabase.co
-const SUPABASE_ANON = 'YOUR_SUPABASE_ANON_KEY';
+const SUPABASE_URL  = 'https://cqdxdwlsfbrdgyxyprzz.supabase.co';   // e.g. https://xyzcompany.supabase.co
+const SUPABASE_ANON = 'sb_publishable_wuKspSbl8vI3H2knM6ysSw_mgZxacSp';
 
 // The CDN exposes `supabase` on `window`
 const _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
