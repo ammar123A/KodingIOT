@@ -82,7 +82,6 @@ class AuthSystem {
 
     async handleRegister() {
         const username        = document.getElementById('regUsername').value.trim();
-        const email           = document.getElementById('regEmail').value.trim();
         const password        = document.getElementById('regPassword').value;
         const confirmPassword = document.getElementById('regConfirmPassword').value;
 
@@ -96,7 +95,7 @@ class AuthSystem {
         }
 
         try {
-            const res = await ApiClient.register(username, email, password);
+            const res = await ApiClient.register(username, password);
             if (res.error) {
                 this.showMessage(res.error, 'error');
                 return;

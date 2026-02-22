@@ -10,10 +10,11 @@ class ApiClient {
 
     // ── Auth ──────────────────────────────────────────────
 
-    static async register(username, email, password) {
-        // Create Supabase auth user.
+    static async register(username, password) {
+        // Auto-generate email from username (kids don't need real email).
         // A database trigger (handle_new_user) automatically creates
         // the public.users profile row — no manual insert needed.
+        const email = `${username.toLowerCase().replace(/[^a-z0-9]/g, '')}@kodingiot.app`;
         const { data, error } = await _supabase.auth.signUp({
             email,
             password,
