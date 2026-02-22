@@ -36,11 +36,34 @@ function jsonResponse(array $data, int $status = 200): void {
 }
 
 /**
+ * Session timeout in seconds (10 minutes).
+ */
+define('SESSION_TIMEOUT', 600);
+
+/**
  * Start or resume a PHP session (used for auth).
+ * Automatically destroys the session after SESSION_TIMEOUT seconds of inactivity.
  */
 function ensureSession(): void {
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
+    }
+
+    // Check for session timeout
+    if (isset($_SESSION['last_activity'])) {
+        $elapsed = time() - $_SESSION['last_activity'];
+        if ($elapsed > SESSION_TIMEOUT) {
+            // Session expired — destroy it
+            session_unset();
+            session_destroy();
+            session_start(); // start a fresh empty session
+            return;
+        }
+    }
+
+    // Update last activity timestamp on every request
+    if (isset($_SESSION['user_id'])) {
+        $_SESSION['last_activity'] = time();
     }
 }
 

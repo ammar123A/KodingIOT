@@ -72,5 +72,19 @@
 
     <script src="js/api-client.js"></script>
     <script src="js/auth.js"></script>
+    <script>
+    // Show session-expired message if redirected
+    (function() {
+        if (new URLSearchParams(window.location.search).get('expired') === '1') {
+            const msg = document.createElement('div');
+            msg.className = 'auth-message error';
+            msg.textContent = '⏳ Sesi anda telah tamat kerana tidak aktif. Sila log masuk semula.';
+            const card = document.querySelector('.auth-card');
+            if (card) card.insertBefore(msg, card.querySelector('.auth-form'));
+            // Clean URL
+            history.replaceState(null, '', 'login.html');
+        }
+    })();
+    </script>
 </body>
 </html>

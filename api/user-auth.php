@@ -102,9 +102,10 @@ switch ($action) {
         }
 
         // Store session
-        $_SESSION['user_id']  = (int) $user['id'];
-        $_SESSION['username'] = $user['username'];
-        $_SESSION['role']     = $user['role'];
+        $_SESSION['user_id']       = (int) $user['id'];
+        $_SESSION['username']      = $user['username'];
+        $_SESSION['role']          = $user['role'];
+        $_SESSION['last_activity'] = time();
 
         jsonResponse([
             'success' => true,
