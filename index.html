@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KodingIoT - Belajar Coding & IoT untuk Kanak-kanak</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/blockly-custom.css">
+    
+    <!-- Blockly Library -->
+    <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+    <script src="https://unpkg.com/blockly/javascript_compressed.js"></script>
+    <script src="https://unpkg.com/blockly/blocks_compressed.js"></script>
+    <script src="https://unpkg.com/blockly/msg/ms.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>🚀 KodingIoT</h1>
+                <span>Belajar Coding & IoT untuk Kanak-kanak</span>
+            </div>
+            <nav class="navbar">
+                <span id="currentProjectName" style="color: #ffd700; font-weight: bold; margin-right: 10px;"></span>
+                <a href="gallery.html" class="btn">🖼️ Gallery</a>
+                <button id="btn-new" class="btn">📝 Baharu</button>
+                <button id="btn-save" class="btn">💾 Simpan</button>
+                <button id="btn-load" class="btn">📂 Buka</button>
+                <button id="btn-arduino" class="btn" title="Sambungkan Arduino/ESP32">🔌 Arduino</button>
+                <button id="btn-arduino-code" class="btn" title="Lihat kod Arduino" style="display:none;">📟 Kod C++</button>
+                <button id="btn-tutorial" class="btn">📚 Tutorial</button>
+                <button id="btn-run" class="btn run-btn">▶️ Jalankan</button>
+                <button id="btn-login" class="btn" style="background:#805ad5;">🔐 Log Masuk</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <div class="workspace-area">
+            <!-- Blockly Workspace -->
+            <div id="blocklyDiv" class="blockly-workspace"></div>
+            
+            <!-- Code Preview & Output -->
+            <div class="output-panel">
+                <div class="panel-header">
+                    <h3>📋 Kod Hasil & Output</h3>
+                </div>
+                <div class="code-output">
+                    <pre id="generatedCode">// Kod akan muncul di sini...</pre>
+                </div>
+                <div class="simulation-output">
+                    <h4>🎮 Simulator IoT</h4>
+                    <div id="iotSimulator" class="iot-simulator">
+                        <div class="simulator-item">
+                            <div class="led" id="led1"></div>
+                            <span>LED 1</span>
+                        </div>
+                        <div class="simulator-item">
+                            <div class="led off" id="led2"></div>
+                            <span>LED 2</span>
+                        </div>
+                        <div class="simulator-item">
+                            <div class="led off" id="led3"></div>
+                            <span>LED 3</span>
+                        </div>
+
+                        <div class="simulator-item">
+                            <div class="sensor-display" id="sensor-temperature">🌡️ 25.5°C</div>
+                            <span>Suhu</span>
+                        </div>
+                        <div class="simulator-item">
+                            <div class="sensor-display" id="sensor-humidity">💧 60%</div>
+                            <span>Kelembapan</span>
+                        </div>
+                        <div class="simulator-item">
+                            <div class="sensor-display" id="sensor-light">🔆 700 lx</div>
+                            <span>Cahaya</span>
+                        </div>
+                        <div class="simulator-item">
+                            <div class="sensor-display" id="sensor-distance">📏 50 cm</div>
+                            <span>Jarak</span>
+                        </div>
+                        <div class="simulator-item">
+                            <div class="sensor-display" id="sensor-motion">🚶 TIADA</div>
+                            <span>Gerakan</span>
+                        </div>
+
+                        <div class="simulator-item">
+                            <div class="servo-display" id="servo1">90°</div>
+                            <span>Servo 1</span>
+                        </div>
+                        <div class="simulator-item">
+                            <div class="servo-display" id="servo2">90°</div>
+                            <span>Servo 2</span>
+                        </div>
+
+                        <div class="simulator-item">
+                            <div class="buzzer" id="buzzer">🔊</div>
+                            <span>Buzzer</span>
+                        </div>
+
+                        <div class="simulator-item">
+                            <button class="sim-button" id="button1">Butang 1</button>
+                        </div>
+                        <div class="simulator-item">
+                            <button class="sim-button" id="button2">Butang 2</button>
+                        </div>
+
+                        <div class="simulator-item full-width">
+                            <div class="lcd-display" id="lcdDisplay">Hello!</div>
+                            <span>LCD 16x2</span>
+                        </div>
+
+                        <div class="simulator-item full-width" id="arduinoStatus" style="display:none;">
+                            <div id="arduinoStatusBadge" style="padding:8px 16px; border-radius:20px; font-weight:bold; font-size:0.85em;
+                                background:#fed7d7; color:#c53030; text-align:center;">
+                                🔌 Arduino: Tidak Tersambung
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Arduino Code Modal -->
+    <div id="arduinoCodeModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6);
+        z-index:10001; justify-content:center; align-items:center;">
+        <div style="background:#1e1e1e; color:#d4d4d4; border-radius:12px; width:700px; max-width:90vw;
+            max-height:85vh; overflow:auto; padding:20px; box-shadow:0 10px 40px rgba(0,0,0,0.5);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <h3 style="margin:0; color:#4fc3f7;">📟 Kod Arduino/ESP32 (C++)</h3>
+                <div>
+                    <button id="btnCopyArduino" style="background:#4fc3f7; color:#000; border:none; padding:6px 14px;
+                        border-radius:6px; cursor:pointer; font-weight:bold; margin-right:6px;">📋 Salin</button>
+                    <button id="btnCloseArduino" style="background:#555; color:#fff; border:none; padding:6px 14px;
+                        border-radius:6px; cursor:pointer; font-weight:bold;">✕ Tutup</button>
+                </div>
+            </div>
+            <pre id="arduinoCodeOutput" style="background:#111; padding:15px; border-radius:8px;
+                overflow:auto; font-size:13px; line-height:1.5; white-space:pre-wrap;"></pre>
+        </div>
+    </div>
+
+    <!-- Toolbox Definition -->
+    <xml id="toolbox" style="display: none">
+        <!-- Kategori Asas -->
+        <category name="🧩 Asas" colour="20">
+            <block type="controls_if"></block>
+            <block type="controls_ifelse"></block>
+            <block type="logic_compare"></block>
+            <block type="logic_operation"></block>
+            <block type="logic_negate"></block>
+            <block type="logic_boolean"></block>
+            <block type="logic_null"></block>
+            <block type="controls_repeat_ext"></block>
+            <block type="controls_whileUntil"></block>
+            <block type="controls_for"></block>
+            <block type="controls_forEach"></block>
+            <block type="controls_flow_statements"></block>
+            <block type="math_number"></block>
+            <block type="math_arithmetic"></block>
+            <block type="math_single"></block>
+            <block type="math_trig"></block>
+            <block type="math_round"></block>
+            <block type="math_modulo"></block>
+            <block type="math_random_int"></block>
+            <block type="math_random_float"></block>
+            <block type="text"></block>
+            <block type="text_join"></block>
+            <block type="text_length"></block>
+            <block type="text_isEmpty"></block>
+            <block type="text_indexOf"></block>
+            <block type="text_charAt"></block>
+            <block type="text_getSubstring"></block>
+            <block type="text_changeCase"></block>
+            <block type="text_trim"></block>
+            <block type="text_prompt_ext"></block>
+            <block type="text_print"></block>
+
+            <block type="lists_create_empty"></block>
+            <block type="lists_create_with"></block>
+            <block type="lists_repeat"></block>
+            <block type="lists_length"></block>
+            <block type="lists_isEmpty"></block>
+            <block type="lists_indexOf"></block>
+            <block type="lists_getIndex"></block>
+            <block type="lists_setIndex"></block>
+            <block type="lists_getSublist"></block>
+            <block type="lists_sort"></block>
+        </category>
+
+        <!-- Kategori IoT -->
+        <category name="🔌 IoT" colour="120">
+            <block type="iot_led_on"></block>
+            <block type="iot_led_off"></block>
+            <block type="iot_button_pressed"></block>
+            <block type="iot_delay"></block>
+            <block type="iot_lcd_display"></block>
+        </category>
+
+        <!-- Kategori Sensor -->
+        <category name="📡 Sensor" colour="160">
+            <block type="sensor_temperature"></block>
+            <block type="sensor_humidity"></block>
+            <block type="sensor_light"></block>
+            <block type="sensor_distance"></block>
+            <block type="sensor_motion"></block>
+        </category>
+
+        <!-- Kategori Aktuator -->
+        <category name="⚙️ Aktuator" colour="200">
+            <block type="servo_rotate"></block>
+            <block type="buzzer_beep"></block>
+            <block type="buzzer_tone"></block>
+        </category>
+
+        <!-- Kategori LCD Lanjutan -->
+        <category name="📺 LCD Lanjutan" colour="120">
+            <block type="lcd_clear"></block>
+            <block type="lcd_set_cursor"></block>
+        </category>
+
+        <!-- Kategori Pembolehubah & Fungsi -->
+        <category name="🔣 Pembolehubah" colour="330" custom="VARIABLE"></category>
+        <category name="🧱 Fungsi" colour="290" custom="PROCEDURE"></category>
+
+        <!-- Kategori Game -->
+        <category name="🎮 Game" colour="230">
+            <block type="game_move"></block>
+        </category>
+    </xml>
+
+    <!-- JavaScript Files -->
+    <script src="js/api-client.js"></script>
+    <script>
+    // Check login state and update navbar
+    (async function() {
+        const btn = document.getElementById('btn-login');
+        if (!btn) return;
+        try {
+            const res = await ApiClient.me();
+            if (res.user) {
+                localStorage.setItem('kodingiot_current_user', JSON.stringify(res.user));
+                btn.textContent = '👤 ' + res.user.username;
+                btn.style.background = '#48bb78';
+                btn.onclick = async () => {
+                    if (confirm('Log keluar daripada akaun ' + res.user.username + '?')) {
+                        await ApiClient.logout();
+                        localStorage.removeItem('kodingiot_current_user');
+                        location.reload();
+                    }
+                };
+            } else {
+                btn.onclick = () => { window.location.href = 'login.html'; };
+            }
+        } catch {
+            btn.onclick = () => { window.location.href = 'login.html'; };
+        }
+    })();
+    </script>
+    <script src="js/blocks.js"></script>
+    <script src="js/iot-simulator.js"></script>
+    <script src="js/arduino-connector.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

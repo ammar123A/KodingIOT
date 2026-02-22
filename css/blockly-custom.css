@@ -1,0 +1,58 @@
+/* Custom Blockly Styles */
+.blocklyMainBackground {
+    stroke: none;
+}
+
+.blocklyToolboxDiv {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-right: 3px solid #4a5568;
+}
+
+.blocklyTreeRow {
+    margin: 8px 0;
+    padding: 12px 20px;
+    border-radius: 25px;
+    color: white;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.blocklyTreeRow:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateX(5px);
+}
+
+.blocklyTreeSelected {
+    background: rgba(255, 255, 255, 0.3) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Custom block colors */
+.blocklyBlockBackground {
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+/* IoT Blocks - Green Theme */
+.blocklyBackground {
+    fill: #f0fff4 !important;
+}
+
+.blocklyText {
+    fill: #2d3748;
+    font-family: 'Comic Sans MS', sans-serif;
+}
+
+/* Scrollbar Styling */
+.blocklyFlyoutScrollbar {
+    display: none;
+}
+
+.blocklyScrollbarVertical .blocklyScrollbarHandle {
+    fill: #4299e1;
+}
+
+.blocklyScrollbarHorizontal .blocklyScrollbarHandle {
+    fill: #4299e1;
+}

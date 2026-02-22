@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projek Permainan - KodingIoT</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f0f4f8;
+        }
+        .tutorial-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        h1 { color: #4a5568; text-align: center; }
+        .step {
+            margin: 30px 0;
+            padding: 20px;
+            border-left: 5px solid #ed8936;
+            background: #fffaf0;
+            border-radius: 0 10px 10px 0;
+        }
+        .step h2 { color: #c05621; }
+        pre {
+            background: #1a202c;
+            color: #cbd5e0;
+            padding: 15px;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #4299e1;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            margin-top: 20px;
+        }
+        .tip {
+            background: #ebf8ff;
+            border: 2px solid #bee3f8;
+            padding: 12px 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="tutorial-content">
+        <h1>🎮 Tutorial Projek Permainan</h1>
+
+        <div class="step">
+            <h2>1. 🎯 Gerakkan Watak</h2>
+            <p>Gunakan blok <strong>Gerakkan</strong> untuk menggerakkan watak ke pelbagai arah:</p>
+            <pre>
+🎯 Gerakkan → ke hadapan
+⏱️ Tunggu 1 saat
+🎯 Gerakkan → ke kiri
+⏱️ Tunggu 1 saat
+🎯 Gerakkan → ke kanan
+            </pre>
+        </div>
+
+        <div class="step">
+            <h2>2. 🔘 Kawal dengan Butang</h2>
+            <p>Cipta pengawal interaktif menggunakan butang:</p>
+            <pre>
+🔘 Jika butang 1 ditekan → maka
+    🎯 Gerakkan → ke hadapan
+    🔊 Bunyikan Buzzer → Pendek
+
+🔘 Jika butang 2 ditekan → maka
+    🎯 Gerakkan → ke belakang
+    🔊 Bunyikan Buzzer → Pendek
+            </pre>
+        </div>
+
+        <div class="step">
+            <h2>3. 🎵 Mainkan Muzik</h2>
+            <p>Buat melodi ringkas dengan blok buzzer:</p>
+            <pre>
+🎵 Mainkan Nada → Do  selama 0.5 saat
+🎵 Mainkan Nada → Re  selama 0.5 saat
+🎵 Mainkan Nada → Mi  selama 0.5 saat
+🎵 Mainkan Nada → Fa  selama 0.5 saat
+🎵 Mainkan Nada → Sol selama 1 saat
+            </pre>
+            <div class="tip">
+                💡 <strong>Petua:</strong> Cuba ubah tempoh dan nota untuk mencipta melodi anda sendiri!
+            </div>
+        </div>
+
+        <div class="step">
+            <h2>4. 🎮 Projek Cabaran: Lampu Isyarat Permainan</h2>
+            <p>Gabungkan LED, bunyi dan gerakan:</p>
+            <pre>
+📺 Paparkan di LCD → "Sedia..."
+⏱️ Tunggu 2 saat
+🔆 Hidupkan LED 1 (Merah)
+🔊 Bunyikan Buzzer → Pendek
+⏱️ Tunggu 1 saat
+💡 Padamkan LED 1
+🔆 Hidupkan LED 2 (Kuning)
+🔊 Bunyikan Buzzer → Pendek
+⏱️ Tunggu 1 saat
+💡 Padamkan LED 2
+🔆 Hidupkan LED 3 (Hijau)
+🔊 Bunyikan Buzzer → Panjang
+📺 Paparkan di LCD → "MULA!"
+🎯 Gerakkan → ke hadapan
+            </pre>
+        </div>
+
+        <a href="../index.html" class="back-btn">← Kembali ke Editor</a>
+    </div>
+</body>
+</html>

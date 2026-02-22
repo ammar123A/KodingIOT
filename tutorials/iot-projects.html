@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projek IoT - KodingIoT</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f0f4f8;
+        }
+        .tutorial-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        h1 { color: #4a5568; text-align: center; }
+        .step {
+            margin: 30px 0;
+            padding: 20px;
+            border-left: 5px solid #48bb78;
+            background: #f0fff4;
+            border-radius: 0 10px 10px 0;
+        }
+        .step h2 { color: #276749; }
+        pre {
+            background: #1a202c;
+            color: #cbd5e0;
+            padding: 15px;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #4299e1;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            margin-top: 20px;
+        }
+        .tip {
+            background: #ebf8ff;
+            border: 2px solid #bee3f8;
+            padding: 12px 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+        .wiring {
+            background: #faf5ff;
+            border: 2px solid #d6bcfa;
+            padding: 12px 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="tutorial-content">
+        <h1>🔌 Tutorial Projek IoT</h1>
+
+        <div class="step">
+            <h2>1. 🌡️ Pemantau Suhu & Kelembapan</h2>
+            <p>Baca data sensor dan paparkan di LCD:</p>
+            <pre>
+📺 Bersihkan LCD
+📺 Tetapkan Kursor LCD ke Baris 0 Lajur 0
+📺 Paparkan di LCD → 🌡️ Baca Suhu dari Sensor
+⏱️ Tunggu 1 saat
+📺 Tetapkan Kursor LCD ke Baris 1 Lajur 0
+📺 Paparkan di LCD → 💧 Baca Kelembapan dari Sensor
+            </pre>
+            <div class="wiring">
+                🔧 <strong>Pendawaian Arduino:</strong> Sambungkan sensor DHT11 ke pin digital 8. VCC → 5V, GND → GND.
+            </div>
+        </div>
+
+        <div class="step">
+            <h2>2. 📏 Pengesan Jarak Ultrasonik</h2>
+            <p>Ukur jarak dan beri amaran jika terlalu dekat:</p>
+            <pre>
+📏 Baca Jarak dari Ultrasonic → simpan ke "jarak"
+
+jika jarak &lt; 20 maka
+    🔆 Hidupkan LED 1
+    🔊 Bunyikan Buzzer → Siren
+    📺 Paparkan di LCD → "AMARAN! Terlalu dekat"
+lain
+    💡 Padamkan LED 1
+    📺 Paparkan di LCD → "Selamat"
+            </pre>
+            <div class="wiring">
+                🔧 <strong>Pendawaian:</strong> HC-SR04 — TRIG → Pin 11, ECHO → Pin 12, VCC → 5V, GND → GND.
+            </div>
+        </div>
+
+        <div class="step">
+            <h2>3. 🚶 Pengesan Gerakan PIR</h2>
+            <p>Bina sistem keselamatan ringkas:</p>
+            <pre>
+🚶 Sensor Gerakan PIR → simpan ke "gerakan"
+
+jika gerakan = benar maka
+    🔆 Hidupkan Semua LED
+    🔊 Bunyikan Buzzer → Siren
+    📺 Paparkan di LCD → "Gerakan Dikesan!"
+    ⏱️ Tunggu 3 saat
+    💡 Padamkan Semua LED
+lain
+    📺 Paparkan di LCD → "Tiada Gerakan"
+            </pre>
+        </div>
+
+        <div class="step">
+            <h2>4. 🔆 Lampu Automatik (LDR)</h2>
+            <p>Hidupkan LED secara automatik apabila gelap:</p>
+            <pre>
+🔆 Baca Cahaya dari LDR → simpan ke "cahaya"
+
+jika cahaya &lt; 300 maka
+    🔆 Hidupkan Semua LED
+    📺 Paparkan di LCD → "Gelap - LED Hidup"
+lain
+    💡 Padamkan Semua LED
+    📺 Paparkan di LCD → "Terang - LED Padam"
+            </pre>
+            <div class="tip">
+                💡 <strong>Petua:</strong> Tutup sensor LDR dengan tangan untuk mensimulasikan kegelapan!
+            </div>
+        </div>
+
+        <div class="step">
+            <h2>5. 🔄 Kawalan Servo dengan Butang</h2>
+            <p>Kawal pintu servo menggunakan butang:</p>
+            <pre>
+🔘 Jika butang 1 ditekan → maka
+    🔄 Putar Servo 1 ke sudut 90 darjah
+    📺 Paparkan di LCD → "Pintu Terbuka"
+    🔊 Bunyikan Buzzer → Pendek
+
+🔘 Jika butang 2 ditekan → maka
+    🔄 Putar Servo 1 ke sudut 0 darjah
+    📺 Paparkan di LCD → "Pintu Tertutup"
+    🔊 Bunyikan Buzzer → Pendek
+            </pre>
+        </div>
+
+        <div class="step">
+            <h2>6. 🏠 Projek Gabungan: Rumah Pintar</h2>
+            <p>Gabungkan semua sensor untuk membina rumah pintar mini:</p>
+            <pre>
+📺 Paparkan di LCD → "Rumah Pintar Aktif"
+
+// Lampu automatik
+🔆 Baca Cahaya dari LDR → simpan ke "cahaya"
+jika cahaya &lt; 300 maka
+    🔆 Hidupkan LED 1
+lain
+    💡 Padamkan LED 1
+
+// Pemantau suhu
+🌡️ Baca Suhu dari Sensor → simpan ke "suhu"
+jika suhu &gt; 30 maka
+    🔄 Putar Servo 1 ke sudut 90 (buka tingkap)
+    🔊 Bunyikan Buzzer → Pendek
+lain
+    🔄 Putar Servo 1 ke sudut 0 (tutup tingkap)
+
+// Pengesan gerakan
+🚶 Sensor Gerakan PIR → simpan ke "gerakan"
+jika gerakan = benar maka
+    🔆 Hidupkan LED 2
+    📺 Paparkan di LCD → "Tetamu di pintu!"
+            </pre>
+            <div class="tip">
+                💡 <strong>Petua:</strong> Mula dengan simulator, kemudian sambungkan Arduino sebenar apabila bersedia!
+            </div>
+        </div>
+
+        <a href="../index.html" class="back-btn">← Kembali ke Editor</a>
+    </div>
+</body>
+</html>
