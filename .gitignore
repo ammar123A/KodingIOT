@@ -1,6 +1,10 @@
 # Ignore markdown files
 *.md
 
+# Environment / secrets — NEVER commit
+.env
+api/.env
+
 # OS files
 Thumbs.db
 .DS_Store

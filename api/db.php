@@ -2,13 +2,28 @@
 /**
  * Database configuration for KodingIoT
  * PostgreSQL — database: coding_iot
+ *
+ * Credentials are loaded from api/.env (NOT committed to git).
+ * Copy api/.env.example → api/.env and fill in your values.
  */
 
-define('DB_HOST', 'localhost');
-define('DB_PORT', '5432');
-define('DB_NAME', 'coding_iot');
-define('DB_USER', 'postgres');       // change to your PG user
-define('DB_PASS', 'Pa55word.123');               // change to your PG password
+// Load .env file
+$envFile = __DIR__ . '/.env';
+if (file_exists($envFile)) {
+    foreach (file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) as $line) {
+        if (str_starts_with(trim($line), '#')) continue;
+        if (strpos($line, '=') !== false) {
+            [$key, $val] = explode('=', $line, 2);
+            $_ENV[trim($key)] = trim($val);
+        }
+    }
+}
+
+define('DB_HOST', $_ENV['DB_HOST'] ?? 'localhost');
+define('DB_PORT', $_ENV['DB_PORT'] ?? '5432');
+define('DB_NAME', $_ENV['DB_NAME'] ?? 'coding_iot');
+define('DB_USER', $_ENV['DB_USER'] ?? 'postgres');
+define('DB_PASS', $_ENV['DB_PASS'] ?? '');
 
 /**
  * Get a PDO connection (singleton per request).
