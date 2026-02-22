@@ -11,24 +11,15 @@ class ApiClient {
     // ── Auth ──────────────────────────────────────────────
 
     static async register(username, email, password) {
-        // 1. Create Supabase auth user
+        // Create Supabase auth user.
+        // A database trigger (handle_new_user) automatically creates
+        // the public.users profile row — no manual insert needed.
         const { data, error } = await _supabase.auth.signUp({
             email,
             password,
             options: { data: { username } }
         });
         if (error) return { error: error.message };
-
-        // 2. Insert row into public.users table
-        const userId = data.user?.id;
-        if (userId) {
-            await _supabase.from('users').insert({
-                id: userId,
-                username,
-                email,
-                role: 'student'
-            });
-        }
 
         return { message: 'Pendaftaran berjaya!' };
     }
